@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Reversal - MCQ</title>
+    <link rel="stylesheet" href="mcq-style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Array Reversal</h1>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <form id="quiz-form">
+            <div class="question">
+                <p class="question-text">1. What is the time complexity of reversing an array in-place?</p>
+                <label><input type="radio" name="q1" value="a"> O(n²)</label>
+                <label><input type="radio" name="q1" value="b"> O(n log n)</label>
+                <label><input type="radio" name="q1" value="c"> O(n)</label>
+                <label><input type="radio" name="q1" value="d"> O(1)</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. Which method reverses an array in JavaScript?</p>
+                <label><input type="radio" name="q2" value="a"> array.flip()</label>
+                <label><input type="radio" name="q2" value="b"> array.reverse()</label>
+                <label><input type="radio" name="q2" value="c"> array.invert()</label>
+                <label><input type="radio" name="q2" value="d"> array.backwards()</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. What happens when you reverse an empty array?</p>
+                <label><input type="radio" name="q3" value="a"> Returns null</label>
+                <label><input type="radio" name="q3" value="b"> Throws an error</label>
+                <label><input type="radio" name="q3" value="c"> Returns empty array</label>
+                <label><input type="radio" name="q3" value="d"> Returns undefined</label>
+            </div>
+
+            <button type="button" class="finish-btn" onclick="calculateScore()">Finish</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const answers = {q1: 'c', q2: 'b', q3: 'c'};
+        
+        function calculateScore() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let q in answers) {
+                const selected = form.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    score++;
+                }
+            }
+            
+            document.getElementById('result').innerHTML = `
+                <h2>Your Score: ${score}/${total}</h2>
+                <p>${score === total ? 'Perfect! 🎉' : score >= total/2 ? 'Good job! 👍' : 'Keep practicing! 💪'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

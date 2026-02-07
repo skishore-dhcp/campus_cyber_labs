@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Sort - MCQ</title>
+    <link rel="stylesheet" href="mcq-style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bubble Sort</h1>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <form id="quiz-form">
+            <div class="question">
+                <p class="question-text">1. What is the worst-case time complexity of bubble sort?</p>
+                <label><input type="radio" name="q1" value="a"> O(n)</label>
+                <label><input type="radio" name="q1" value="b"> O(n log n)</label>
+                <label><input type="radio" name="q1" value="c"> O(n²)</label>
+                <label><input type="radio" name="q1" value="d"> O(2^n)</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. Is bubble sort a stable sorting algorithm?</p>
+                <label><input type="radio" name="q2" value="a"> Yes</label>
+                <label><input type="radio" name="q2" value="b"> No</label>
+                <label><input type="radio" name="q2" value="c"> Sometimes</label>
+                <label><input type="radio" name="q2" value="d"> Depends on input</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. What is the best-case time complexity of optimized bubble sort?</p>
+                <label><input type="radio" name="q3" value="a"> O(1)</label>
+                <label><input type="radio" name="q3" value="b"> O(n)</label>
+                <label><input type="radio" name="q3" value="c"> O(n log n)</label>
+                <label><input type="radio" name="q3" value="d"> O(n²)</label>
+            </div>
+
+            <button type="button" class="finish-btn" onclick="calculateScore()">Finish</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const answers = {q1: 'c', q2: 'a', q3: 'b'};
+        
+        function calculateScore() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let q in answers) {
+                const selected = form.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    score++;
+                }
+            }
+            
+            document.getElementById('result').innerHTML = `
+                <h2>Your Score: ${score}/${total}</h2>
+                <p>${score === total ? 'Perfect! 🎉' : score >= total/2 ? 'Good job! 👍' : 'Keep practicing! 💪'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

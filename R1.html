@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Check - MCQ</title>
+    <link rel="stylesheet" href="mcq-style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Palindrome Check</h1>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <form id="quiz-form">
+            <div class="question">
+                <p class="question-text">1. Which of these is a palindrome?</p>
+                <label><input type="radio" name="q1" value="a"> hello</label>
+                <label><input type="radio" name="q1" value="b"> racecar</label>
+                <label><input type="radio" name="q1" value="c"> world</label>
+                <label><input type="radio" name="q1" value="d"> python</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. What is the space complexity of checking palindrome using two pointers?</p>
+                <label><input type="radio" name="q2" value="a"> O(n)</label>
+                <label><input type="radio" name="q2" value="b"> O(n²)</label>
+                <label><input type="radio" name="q2" value="c"> O(log n)</label>
+                <label><input type="radio" name="q2" value="d"> O(1)</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. Should palindrome checks be case-sensitive?</p>
+                <label><input type="radio" name="q3" value="a"> Always yes</label>
+                <label><input type="radio" name="q3" value="b"> Always no</label>
+                <label><input type="radio" name="q3" value="c"> Depends on requirements</label>
+                <label><input type="radio" name="q3" value="d"> Only for numbers</label>
+            </div>
+
+            <button type="button" class="finish-btn" onclick="calculateScore()">Finish</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const answers = {q1: 'b', q2: 'd', q3: 'c'};
+        
+        function calculateScore() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let q in answers) {
+                const selected = form.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    score++;
+                }
+            }
+            
+            document.getElementById('result').innerHTML = `
+                <h2>Your Score: ${score}/${total}</h2>
+                <p>${score === total ? 'Perfect! 🎉' : score >= total/2 ? 'Good job! 👍' : 'Keep practicing! 💪'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

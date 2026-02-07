@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorial Function - MCQ</title>
+    <link rel="stylesheet" href="mcq-style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Factorial Function</h1>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <form id="quiz-form">
+            <div class="question">
+                <p class="question-text">1. What is 5! (5 factorial)?</p>
+                <label><input type="radio" name="q1" value="a"> 25</label>
+                <label><input type="radio" name="q1" value="b"> 120</label>
+                <label><input type="radio" name="q1" value="c"> 60</label>
+                <label><input type="radio" name="q1" value="d"> 100</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">2. What is 0! (0 factorial)?</p>
+                <label><input type="radio" name="q2" value="a"> 0</label>
+                <label><input type="radio" name="q2" value="b"> 1</label>
+                <label><input type="radio" name="q2" value="c"> Undefined</label>
+                <label><input type="radio" name="q2" value="d"> -1</label>
+            </div>
+
+            <div class="question">
+                <p class="question-text">3. Which approach is more efficient for large factorials?</p>
+                <label><input type="radio" name="q3" value="a"> Recursion</label>
+                <label><input type="radio" name="q3" value="b"> Iteration</label>
+                <label><input type="radio" name="q3" value="c"> Both equal</label>
+                <label><input type="radio" name="q3" value="d"> Neither works</label>
+            </div>
+
+            <button type="button" class="finish-btn" onclick="calculateScore()">Finish</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const answers = {q1: 'b', q2: 'b', q3: 'b'};
+        
+        function calculateScore() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let q in answers) {
+                const selected = form.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    score++;
+                }
+            }
+            
+            document.getElementById('result').innerHTML = `
+                <h2>Your Score: ${score}/${total}</h2>
+                <p>${score === total ? 'Perfect! 🎉' : score >= total/2 ? 'Good job! 👍' : 'Keep practicing! 💪'}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
