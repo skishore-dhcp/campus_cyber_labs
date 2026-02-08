@@ -1,50 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Count Vowels</title>
-    <link rel="stylesheet" href="code-style.css">
+    <title>Automated Log File Cleaner</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Count Vowels</h1>
-        <a href="index.html" class="back-btn">← Back to Home</a>
-        
-        <div class="problem-statement">
-            <h2>Problem Statement</h2>
-            <p>Write a function that counts the number of vowels in a given string.</p>
-            <p><strong>Example:</strong> Input: "programming" → Output: 3 (o, a, i)</p>
-        </div>
 
-        <form id="code-form">
-            <label for="code-input">Your Solution:</label>
-            <textarea id="code-input" placeholder="Write your code here..."></textarea>
-            <button type="button" class="submit-btn" onclick="submitCode()">Submit</button>
-        </form>
+<h2>Automated Log File Cleaner Script</h2>
 
-        <div id="feedback" class="feedback"></div>
-    </div>
+<p><b>Directory contents:</b></p>
+<ul>
+    <li>syslog.log (10 days old)</li>
+    <li>auth.log (3 days old)</li>
+    <li>kernel.log (15 days old)</li>
+    <li>config.txt</li>
+</ul>
 
-    <script>
-        function submitCode() {
-            const code = document.getElementById('code-input').value.trim();
-            const feedback = document.getElementById('feedback');
-            
-            if (code === '') {
-                feedback.innerHTML = '<p class="error">Please write some code before submitting!</p>';
-                return;
-            }
-            
-            feedback.innerHTML = `
-                <h3>Submitted Successfully! ✓</h3>
-                <p>Your code has been received and will be evaluated.</p>
-                <div class="code-preview">
-                    <strong>Your submission:</strong>
-                    <pre>${code}</pre>
-                </div>
-            `;
-        }
-    </script>
+<p><b>Bash Script:</b></p>
+<pre>
+find /var/log -name "*.log" -mtime +7 -delete
+</pre>
+
+<p>Which files will be deleted?</p>
+
+<input type="checkbox" id="a"> syslog.log<br>
+<input type="checkbox" id="b"> auth.log<br>
+<input type="checkbox" id="c"> kernel.log<br>
+<input type="checkbox" id="d"> config.txt<br><br>
+
+<button onclick="check()">Submit</button>
+
+<h3 id="result"></h3>
+
+<script>
+function check() {
+    const correct =
+        document.getElementById("a").checked &&
+        !document.getElementById("b").checked &&
+        document.getElementById("c").checked &&
+        !document.getElementById("d").checked;
+
+    document.getElementById("result").innerText =
+        correct ? "Correct Answer ✅" : "Wrong Answer ❌";
+}
+</script>
+
 </body>
 </html>
