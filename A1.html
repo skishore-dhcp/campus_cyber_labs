@@ -3,37 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Array Reversal - MCQ</title>
+    <title>MCQ Quiz - Phishing & CAPTCHA</title>
     <link rel="stylesheet" href="mcq-style.css">
+    <style>
+        /* Basic styling in case mcq-style.css is not available */
+        body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 30px; }
+        .container { max-width: 700px; margin: auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+        h1 { text-align: center; margin-bottom: 20px; }
+        .question { margin-bottom: 20px; }
+        .question-text { font-weight: bold; }
+        label { display: block; margin: 5px 0; cursor: pointer; }
+        .finish-btn { padding: 10px 15px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        .result { margin-top: 20px; font-weight: bold; text-align: center; font-size: 18px; }
+        .back-btn { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #333; }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Array Reversal</h1>
+        <h1>MCQ Quiz - Phishing & CAPTCHA</h1>
         <a href="index.html" class="back-btn">← Back to Home</a>
         
         <form id="quiz-form">
+            <!-- Question 1 -->
             <div class="question">
-                <p class="question-text">1. What is the time complexity of reversing an array in-place?</p>
-                <label><input type="radio" name="q1" value="a"> O(n²)</label>
-                <label><input type="radio" name="q1" value="b"> O(n log n)</label>
-                <label><input type="radio" name="q1" value="c"> O(n)</label>
-                <label><input type="radio" name="q1" value="d"> O(1)</label>
+                <p class="question-text">1. What is the main goal of a phishing URL detector?</p>
+                <label><input type="radio" name="q1" value="a"> Block all websites</label>
+                <label><input type="radio" name="q1" value="b"> Encrypt user data</label>
+                <label><input type="radio" name="q1" value="c"> Detect URLs designed to steal sensitive information</label>
+                <label><input type="radio" name="q1" value="d"> Speed up website loading</label>
             </div>
 
+            <!-- Question 2 -->
             <div class="question">
-                <p class="question-text">2. Which method reverses an array in JavaScript?</p>
-                <label><input type="radio" name="q2" value="a"> array.flip()</label>
-                <label><input type="radio" name="q2" value="b"> array.reverse()</label>
-                <label><input type="radio" name="q2" value="c"> array.invert()</label>
-                <label><input type="radio" name="q2" value="d"> array.backwards()</label>
+                <p class="question-text">2. Which feature is commonly used to detect phishing URLs?</p>
+                <label><input type="radio" name="q2" value="a"> Counting images on the page</label>
+                <label><input type="radio" name="q2" value="b"> Checking domain age, spelling, and suspicious patterns</label>
+                <label><input type="radio" name="q2" value="c"> Monitoring mouse movements</label>
+                <label><input type="radio" name="q2" value="d"> Checking HTTPS only</label>
             </div>
 
+            <!-- Question 3 -->
             <div class="question">
-                <p class="question-text">3. What happens when you reverse an empty array?</p>
-                <label><input type="radio" name="q3" value="a"> Returns null</label>
-                <label><input type="radio" name="q3" value="b"> Throws an error</label>
-                <label><input type="radio" name="q3" value="c"> Returns empty array</label>
-                <label><input type="radio" name="q3" value="d"> Returns undefined</label>
+                <p class="question-text">3. Why is HTTPS not sufficient to mark a URL as safe?</p>
+                <label><input type="radio" name="q3" value="a"> HTTPS is only for login pages</label>
+                <label><input type="radio" name="q3" value="b"> HTTPS slows down browsers</label>
+                <label><input type="radio" name="q3" value="c"> HTTPS encrypts traffic but does not verify legitimacy</label>
+                <label><input type="radio" name="q3" value="d"> Phishing pages cannot have HTTPS</label>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <p class="question-text">4. In a phishing URL detector, what does a “risk percentage” indicate?</p>
+                <label><input type="radio" name="q4" value="a"> How fast the site loads</label>
+                <label><input type="radio" name="q4" value="b"> Likelihood that the URL is malicious</label>
+                <label><input type="radio" name="q4" value="c"> Number of images on the site</label>
+                <label><input type="radio" name="q4" value="d"> User satisfaction score</label>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <p class="question-text">5. Which of the following is a common phishing tactic?</p>
+                <label><input type="radio" name="q5" value="a"> Using a slow server</label>
+                <label><input type="radio" name="q5" value="b"> Misspelled domains (e.g., g00gle.com)</label>
+                <label><input type="radio" name="q5" value="c"> Removing CSS from the page</label>
+                <label><input type="radio" name="q5" value="d"> Random image uploads</label>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <p class="question-text">6. What does the CAPTCHA Human vs Bot demo primarily measure?</p>
+                <label><input type="radio" name="q6" value="a"> Password strength</label>
+                <label><input type="radio" name="q6" value="b"> Typing speed and reaction time</label>
+                <label><input type="radio" name="q6" value="c"> Mouse clicks only</label>
+                <label><input type="radio" name="q6" value="d"> IP location</label>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <p class="question-text">7. Why does a bot usually fail the typing-based CAPTCHA?</p>
+                <label><input type="radio" name="q7" value="a"> Bots always type incorrectly</label>
+                <label><input type="radio" name="q7" value="b"> Bots type too fast and lack human delays</label>
+                <label><input type="radio" name="q7" value="c"> Bots cannot submit forms</label>
+                <label><input type="radio" name="q7" value="d"> Bots use HTTPS</label>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <p class="question-text">8. If a user types a CAPTCHA correctly but faster than the minimum required time, what happens in the demo?</p>
+                <label><input type="radio" name="q8" value="a"> Human verified ✅</label>
+                <label><input type="radio" name="q8" value="b"> Bot detected ❌</label>
+                <label><input type="radio" name="q8" value="c"> CAPTCHA resets automatically with no warning</label>
+                <label><input type="radio" name="q8" value="d"> Browser crashes</label>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <p class="question-text">9. What is the minimum per-character typing time in the demo?</p>
+                <label><input type="radio" name="q9" value="a"> 0.1 seconds</label>
+                <label><input type="radio" name="q9" value="b"> 0.5 seconds</label>
+                <label><input type="radio" name="q9" value="c"> 1 second</label>
+                <label><input type="radio" name="q9" value="d"> 2 seconds</label>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <p class="question-text">10. What is the main lesson from combining CAPTCHA with typing-speed detection?</p>
+                <label><input type="radio" name="q10" value="a"> Only correctness matters for security</label>
+                <label><input type="radio" name="q10" value="b"> Behavior-based signals help differentiate humans from bots</label>
+                <label><input type="radio" name="q10" value="c"> All fast typing is allowed</label>
+                <label><input type="radio" name="q10" value="d"> Bots can always bypass CAPTCHAs if HTTPS is used</label>
             </div>
 
             <button type="button" class="finish-btn" onclick="calculateScore()">Finish</button>
@@ -43,12 +121,24 @@
     </div>
 
     <script>
-        const answers = {q1: 'c', q2: 'b', q3: 'c'};
+        // Correct answers
+        const answers = {
+            q1: 'c',
+            q2: 'b',
+            q3: 'c',
+            q4: 'b',
+            q5: 'b',
+            q6: 'b',
+            q7: 'b',
+            q8: 'b',
+            q9: 'b',
+            q10: 'b'
+        };
         
         function calculateScore() {
             const form = document.getElementById('quiz-form');
             let score = 0;
-            let total = Object.keys(answers).length;
+            const total = Object.keys(answers).length;
             
             for (let q in answers) {
                 const selected = form.querySelector(`input[name="${q}"]:checked`);
