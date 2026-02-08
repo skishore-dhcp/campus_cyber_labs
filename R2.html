@@ -1,50 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>String Reversal</title>
-    <link rel="stylesheet" href="code-style.css">
+    <title>File Permission Analyzer</title>
 </head>
 <body>
-    <div class="container">
-        <h1>String Reversal</h1>
-        <a href="index.html" class="back-btn">← Back to Home</a>
-        
-        <div class="problem-statement">
-            <h2>Problem Statement</h2>
-            <p>Write a function that reverses a given string.</p>
-            <p><strong>Example:</strong> Input: "hello" → Output: "olleh"</p>
-        </div>
 
-        <form id="code-form">
-            <label for="code-input">Your Solution:</label>
-            <textarea id="code-input" placeholder="Write your code here..."></textarea>
-            <button type="button" class="submit-btn" onclick="submitCode()">Submit</button>
-        </form>
+<h2>File Permission Analyzer</h2>
+<p>Enter numeric permission (example: 755)</p>
 
-        <div id="feedback" class="feedback"></div>
-    </div>
+<input type="text" id="perm" placeholder="Enter permission">
+<button onclick="analyze()">Analyze</button>
 
-    <script>
-        function submitCode() {
-            const code = document.getElementById('code-input').value.trim();
-            const feedback = document.getElementById('feedback');
-            
-            if (code === '') {
-                feedback.innerHTML = '<p class="error">Please write some code before submitting!</p>';
-                return;
-            }
-            
-            feedback.innerHTML = `
-                <h3>Submitted Successfully! ✓</h3>
-                <p>Your code has been received and will be evaluated.</p>
-                <div class="code-preview">
-                    <strong>Your submission:</strong>
-                    <pre>${code}</pre>
-                </div>
-            `;
-        }
-    </script>
+<h3 id="output"></h3>
+
+<script>
+function analyze() {
+    const perm = document.getElementById("perm").value;
+    if (perm.length !== 3) {
+        document.getElementById("output").innerText = "Invalid permission format";
+        return;
+    }
+
+    const map = {
+        0: "---", 1: "--x", 2: "-w-", 3: "-wx",
+        4: "r--", 5: "r-x", 6: "rw-", 7: "rwx"
+    };
+
+    const owner = map[perm[0]];
+    const group = map[perm[1]];
+    const other = map[perm[2]];
+
+    document.getElementById("output").innerText =
+        "Owner: " + owner + "\n" +
+        "Group: " + group + "\n" +
+        "Others: " + other;
+}
+</script>
+
 </body>
 </html>
