@@ -1,50 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sum of Elements</title>
-    <link rel="stylesheet" href="code-style.css">
+<meta charset="UTF-8">
+<title>Typing CAPTCHA vs Bot Demo</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    text-align: center;
+    padding: 40px;
+  }
+  .captcha-box {
+    background: white;
+    width: 320px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .captcha-text {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    background: #eee;
+    padding: 10px;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+  input {
+    padding: 8px;
+    width: 90%;
+    font-size: 16px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  .pass { color: green; }
+  .fail { color: red; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Sum of Elements</h1>
-        <a href="index.html" class="back-btn">← Back to Home</a>
-        
-        <div class="problem-statement">
-            <h2>Problem Statement</h2>
-            <p>Write a function that calculates the sum of all elements in an array.</p>
-            <p><strong>Example:</strong> Input: [1, 2, 3, 4, 5] → Output: 15</p>
-        </div>
 
-        <form id="code-form">
-            <label for="code-input">Your Solution:</label>
-            <textarea id="code-input" placeholder="Write your code here..."></textarea>
-            <button type="button" class="submit-btn" onclick="submitCode()">Submit</button>
-        </form>
+<h2>CAPTCHA Typing Speed Demo</h2>
+<p>Minimum typing speed: <strong>0.5 seconds per character</strong></p>
 
-        <div id="feedback" class="feedback"></div>
-    </div>
+<div class="captcha-box">
+  <div class="captcha-text" id="captcha"></div>
+  <input type="text" id="captchaInput" placeholder="Type the CAPTCHA">
+  <br>
+  <button onclick="verifyCaptcha()">Verify</button>
+  <div class="result" id="result"></div>
+</div>
 
-    <script>
-        function submitCode() {
-            const code = document.getElementById('code-input').value.trim();
-            const feedback = document.getElementById('feedback');
-            
-            if (code === '') {
-                feedback.innerHTML = '<p class="error">Please write some code before submitting!</p>';
-                return;
-            }
-            
-            feedback.innerHTML = `
-                <h3>Submitted Successfully! ✓</h3>
-                <p>Your code has been received and will be evaluated.</p>
-                <div class="code-preview">
-                    <strong>Your submission:</strong>
-                    <pre>${code}</pre>
-                </div>
-            `;
-        }
-    </script>
+<script>
+let captchaText = "";
+let startTypingTime = null;
+
+// Generate random CAPTCHA
+function generateCaptcha() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  captchaText = "";
+  for (let i = 0; i < 6; i++) {
+    captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  document.getElementById("captcha").textContent = captchaText;
+  document.getElementById("captchaInput").value = "";
+  document.getElementById("result").textContent = "";
+  startTypingTime = null;
+}
+
+// Capture first keystroke time
+document.getElementById("captchaInput").addEventListener("keydown", () => {
+  if (!startTypingTime) {
+    startTypingTime = Date.now();
+  }
+});
+
+function verifyCaptcha() {
+  const userInput = document.getElementById("captchaInput").value;
+  const result = document.getElementById("result");
+
+  if (!startTypingTime) {
+    result.textContent = "❌ No typing detected";
+    result.className = "result fail";
+    return;
+  }
+
+  const endTime = Date.now();
+  const typingTime = endTime - startTypingTime;
+  const minRequiredTime = captchaText.length * 500; // 0.5s per character
+
+  if (userInput !== captchaText) {
+    result.textContent = "❌ CAPTCHA incorrect";
+    result.className = "result fail";
+  } 
+  else if (typingTime < minRequiredTime) {
+    result.textContent =
+      `🤖 Bot detected (typed in ${typingTime} ms, required ${minRequiredTime} ms)`;
+    result.className = "result fail";
+  } 
+  else {
+    result.textContent =
+      `✅ Human verified (typing time: ${typingTime} ms)`;
+    result.className = "result pass";
+  }
+
+  // Refresh CAPTCHA after attempt
+  setTimeout(generateCaptcha, 2000);
+}
+
+// Initialize
+generateCaptcha();
+</script>
+
 </body>
 </html>
