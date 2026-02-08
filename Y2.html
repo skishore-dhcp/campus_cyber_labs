@@ -1,50 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fibonacci Sequence</title>
-    <link rel="stylesheet" href="code-style.css">
+<meta charset="UTF-8">
+<title>Y2 - Linux & Bash Commands</title>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Fibonacci Sequence</h1>
-        <a href="index.html" class="back-btn">← Back to Home</a>
-        
-        <div class="problem-statement">
-            <h2>Problem Statement</h2>
-            <p>Write a function that generates the first N numbers in the Fibonacci sequence.</p>
-            <p><strong>Example:</strong> Input: 7 → Output: [0, 1, 1, 2, 3, 5, 8]</p>
-        </div>
 
-        <form id="code-form">
-            <label for="code-input">Your Solution:</label>
-            <textarea id="code-input" placeholder="Write your code here..."></textarea>
-            <button type="button" class="submit-btn" onclick="submitCode()">Submit</button>
-        </form>
+<h1>Y2: Linux & Bash Commands Practice</h1>
 
-        <div id="feedback" class="feedback"></div>
-    </div>
+<form id="quizForm">
 
-    <script>
-        function submitCode() {
-            const code = document.getElementById('code-input').value.trim();
-            const feedback = document.getElementById('feedback');
-            
-            if (code === '') {
-                feedback.innerHTML = '<p class="error">Please write some code before submitting!</p>';
-                return;
-            }
-            
-            feedback.innerHTML = `
-                <h3>Submitted Successfully! ✓</h3>
-                <p>Your code has been received and will be evaluated.</p>
-                <div class="code-preview">
-                    <strong>Your submission:</strong>
-                    <pre>${code}</pre>
-                </div>
-            `;
+<p>1. List files in the current directory</p>
+<textarea id="q1"></textarea>
+
+<p>2. Create a directory named cyberlab</p>
+<textarea id="q2"></textarea>
+
+<p>3. Move into the directory cyberlab</p>
+<textarea id="q3"></textarea>
+
+<p>4. Create a file named test.txt</p>
+<textarea id="q4"></textarea>
+
+<p>5. Write "hello" into test.txt</p>
+<textarea id="q5"></textarea>
+
+<p>6. Display the contents of test.txt</p>
+<textarea id="q6"></textarea>
+
+<p>7. Show current working directory</p>
+<textarea id="q7"></textarea>
+
+<p>8. Go back to the parent directory</p>
+<textarea id="q8"></textarea>
+
+<p>9. Delete the file test.txt</p>
+<textarea id="q9"></textarea>
+
+<p>10. Clear the terminal screen</p>
+<textarea id="q10"></textarea>
+
+<br><br>
+<button type="submit">Submit</button>
+</form>
+
+<hr>
+
+<h2 id="score"></h2>
+<div id="answers"></div>
+
+<script>
+document.getElementById("quizForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const correct = [
+        ["ls"],
+        ["mkdir cyberlab"],
+        ["cd cyberlab"],
+        ["touch test.txt"],
+        ["echo hello > test.txt"],
+        ["cat test.txt"],
+        ["pwd"],
+        ["cd .."],
+        ["rm test.txt"],
+        ["clear"]
+    ];
+
+    let score = 0;
+    let feedback = "<h3>Correct answers for wrong questions:</h3>";
+
+    for (let i = 1; i <= 10; i++) {
+        let ans = document.getElementById("q"+i).value.trim().toLowerCase();
+
+        if (correct[i-1].includes(ans)) {
+            score++;
+        } else {
+            feedback += `<p>Q${i}: ${correct[i-1][0]}</p>`;
         }
-    </script>
+    }
+
+    document.getElementById("score").innerText = "Your Score: " + score + " / 10";
+    document.getElementById("answers").innerHTML = feedback;
+});
+</script>
+
 </body>
 </html>
