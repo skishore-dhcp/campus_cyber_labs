@@ -1,50 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Maximum</title>
-    <link rel="stylesheet" href="code-style.css">
+<meta charset="UTF-8">
+<title>Phishing URL Risk Detector</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    padding: 30px;
+  }
+  h2 {
+    color: #333;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  button {
+    margin-top: 12px;
+    padding: 10px 18px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .result {
+    background: #fff;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .safe {
+    color: green;
+    font-weight: bold;
+  }
+  .medium {
+    color: orange;
+    font-weight: bold;
+  }
+  .danger {
+    color: red;
+    font-weight: bold;
+  }
+  .bar {
+    height: 20px;
+    background: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .fill {
+    height: 100%;
+    text-align: right;
+    padding-right: 5px;
+    color: white;
+    font-size: 12px;
+    line-height: 20px;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Find Maximum</h1>
-        <a href="index.html" class="back-btn">← Back to Home</a>
-        
-        <div class="problem-statement">
-            <h2>Problem Statement</h2>
-            <p>Write a function that finds the maximum element in an array of numbers.</p>
-            <p><strong>Example:</strong> Input: [3, 7, 2, 9, 1] → Output: 9</p>
-        </div>
 
-        <form id="code-form">
-            <label for="code-input">Your Solution:</label>
-            <textarea id="code-input" placeholder="Write your code here..."></textarea>
-            <button type="button" class="submit-btn" onclick="submitCode()">Submit</button>
-        </form>
+<h2>Phishing URL Risk Detector</h2>
 
-        <div id="feedback" class="feedback"></div>
+<p>Enter a URL to analyze:</p>
+<input type="text" id="urlInput" placeholder="https://example.com">
+
+<button onclick="analyzeURL()">Analyze URL</button>
+
+<div class="result" id="result"></div>
+
+<script>
+function analyzeURL() {
+  const url = document.getElementById("urlInput").value.trim();
+  let score = 0;
+  let reasons = [];
+  const maxScore = 10;
+
+  // Rule 1: URL length
+  if (url.length > 75) {
+    score++;
+    reasons.push("URL is unusually long");
+  }
+
+  // Rule 2: IP address instead of domain
+  if (/https?:\/\/\d+\.\d+\.\d+\.\d+/.test(url)) {
+    score += 2;
+    reasons.push("Uses an IP address instead of a domain name");
+  }
+
+  // Rule 3: Suspicious keywords
+  const keywords = ["login", "verify", "secure", "update", "account", "bank"];
+  keywords.forEach(word => {
+    if (url.toLowerCase().includes(word)) {
+      score++;
+      reasons.push(`Contains suspicious keyword: "${word}"`);
+    }
+  });
+
+  let hostname = "";
+  try {
+    hostname = new URL(url).hostname;
+  } catch {
+    document.getElementById("result").innerHTML =
+      "<span class='danger'>Invalid URL format</span>";
+    return;
+  }
+
+  // Rule 4: Too many subdomains
+  if (hostname.split(".").length > 4) {
+    score++;
+    reasons.push("Too many subdomains");
+  }
+
+  // Rule 5: Hyphen in domain
+  if (hostname.includes("-")) {
+    score++;
+    reasons.push("Hyphenated domain name");
+  }
+
+  // Rule 6: No HTTPS
+  if (!url.startsWith("https://")) {
+    score++;
+    reasons.push("Does not use HTTPS");
+  }
+
+  // Cap score
+  if (score > maxScore) score = maxScore;
+
+  // Calculate percentage
+  const riskPercent = Math.min(Math.round((score / maxScore) * 100), 100);
+
+  // Verdict
+  let verdictText, cssClass, barColor;
+  if (riskPercent < 30) {
+    verdictText = "Likely Safe";
+    cssClass = "safe";
+    barColor = "#4CAF50";
+  } else if (riskPercent < 60) {
+    verdictText = "Suspicious";
+    cssClass = "medium";
+    barColor = "#FFA500";
+  } else {
+    verdictText = "High Phishing Risk";
+    cssClass = "danger";
+    barColor = "#F44336";
+  }
+
+  document.getElementById("result").innerHTML = `
+    <div class="${cssClass}">${verdictText}</div>
+    <p><strong>Risk Score:</strong> ${riskPercent}%</p>
+
+    <div class="bar">
+      <div class="fill" style="width:${riskPercent}%; background:${barColor};">
+        ${riskPercent}%
+      </div>
     </div>
 
-    <script>
-        function submitCode() {
-            const code = document.getElementById('code-input').value.trim();
-            const feedback = document.getElementById('feedback');
-            
-            if (code === '') {
-                feedback.innerHTML = '<p class="error">Please write some code before submitting!</p>';
-                return;
-            }
-            
-            feedback.innerHTML = `
-                <h3>Submitted Successfully! ✓</h3>
-                <p>Your code has been received and will be evaluated.</p>
-                <div class="code-preview">
-                    <strong>Your submission:</strong>
-                    <pre>${code}</pre>
-                </div>
-            `;
-        }
-    </script>
+    <p><strong>Detection Reasons:</strong></p>
+    <ul>
+      ${reasons.length ? reasons.map(r => `<li>${r}</li>`).join("") : "<li>No obvious phishing indicators</li>"}
+    </ul>
+  `;
+}
+</script>
+
 </body>
 </html>
